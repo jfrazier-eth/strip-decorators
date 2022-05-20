@@ -1,4 +1,4 @@
-import { compileFromConfig } from '../src/compile';
+import { compileFromConfig } from '../compile';
 import { readFileSync } from 'fs';
 import { CompilerOptions } from 'typescript';
 
