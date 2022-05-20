@@ -1,36 +1,10 @@
 import * as ts from "typescript";
 import { elideImports } from "./elide-imports";
-import * as tsConfigFull from './tsconfig.full.json';
-import * as tsConfigStripped from './tsconfig.stripped.json';
-import * as tsConfigBase from './tsconfig.json';
-import { copyFileSync, mkdirSync} from "fs";
-import {join} from "path";
 
-const entrypoint = './src/index.ts';
-
-mkdirSync(tsConfigStripped.compilerOptions.outDir)
-mkdirSync(tsConfigFull.compilerOptions.outDir)
-copyFileSync('./package.json', join(tsConfigStripped.compilerOptions.outDir, 'package.json'));
-copyFileSync('./package.json', join(tsConfigFull.compilerOptions.outDir, 'package.json'));
-
-const programFull = ts.createProgram({
-  rootNames: [entrypoint],
-  options: { ...tsConfigBase.compilerOptions, ...tsConfigFull.compilerOptions } as any as ts.CompilerOptions,
-});
-
-const programStripped = ts.createProgram({
-  rootNames: [entrypoint],
-  options: { ...tsConfigBase.compilerOptions, ...tsConfigStripped.compilerOptions } as any as ts.CompilerOptions,
-});
-
-function main() {
-    compile(programFull, false);
-    compile(programStripped, true);
-}
-
-main();
-
-function compile(program: ts.Program, stripDecorators?: boolean) {
+/**
+ * Compiles a TypeScript program, stripping all decorators and unused imports.
+ */
+export function compile(program: ts.Program) {
   const transformerFactory: ts.TransformerFactory<ts.SourceFile> = (
     context: ts.TransformationContext
   ) => {
@@ -85,13 +59,18 @@ function compile(program: ts.Program, stripDecorators?: boolean) {
     };
   };
 
+  program.emit(undefined, undefined, undefined, undefined, {
+    before: [transformerFactory],
+  });
+}
 
-  if(stripDecorators) {
-      program.emit(undefined, undefined, undefined, undefined, {
-        before: [transformerFactory],
-      });
-  } else {
-    program.emit();
-  }
-
+/**
+ * Compiles a TypeScript program, stripping all decorators and unused imports.
+ */
+export function compileFromConfig(rootNames: string[], tsconfig: any, baseConfig?: any) {
+  const program = ts.createProgram({
+    rootNames,
+    options: { ...baseConfig.compilerOptions, ...tsconfig.compilerOptions, },
+  });
+  return compile(program);
 }

@@ -1,3 +1,4 @@
-dist/**
-full/**
-node_modules/**
+dist/
+full/
+stripped/
+node_modules/
