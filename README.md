@@ -19,12 +19,12 @@ Install the dependency locally:
 Usage:
 
 ```js
-import { compileFromConfig } = from 'strip-decorators';
+import { compileFromOptions } = from 'strip-decorators';
 import * as tsconfig from './tsconfig.json';
 
 (() => {
   const entrypoints = ['./src/index.ts'];
-  compileFromConfig(entrypoints, tsconfig.compilerOptions);
+  compileFromOptions(entrypoints, tsconfig.compilerOptions);
 })();
 ```
 

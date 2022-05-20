@@ -1,4 +1,4 @@
-import { compileFromConfig } from '../compile';
+import { compileFromOptions } from '../compile';
 import { readFileSync } from 'fs';
 import { CompilerOptions } from 'typescript';
 
@@ -21,7 +21,7 @@ function main() {
     options = {...options, ...json.compilerOptions};
   }
 
-  compileFromConfig([entrypoint], options);
+  compileFromOptions([entrypoint], options);
 }
 
 main();
