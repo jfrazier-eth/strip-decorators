@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "license": "MIT",
+  "bin": {
+    "strip-decorators": "./dist/bin/main.js"
+  },
   "scripts": {
     "clean": "rimraf dist",
-    "build": "npm run clean && tsc"
+    "build": "npm run clean && tsc",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "typescript": "^4.6.3"
