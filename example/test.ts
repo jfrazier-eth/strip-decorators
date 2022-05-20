@@ -1,4 +1,4 @@
-import { UserDto as Full } from './dist/dto/user.dto';
+import { UserDto as Full } from './stripped/dto/user.dto';
 import { UserDto as Stripped } from './full/dto/user.dto';
 
 const full = new Full();

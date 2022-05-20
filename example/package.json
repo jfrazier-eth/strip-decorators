@@ -4,10 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf dist & rimraf full",
+    "clean": "rimraf stripped & rimraf full",
     "build": "npm run clean && ts-node strip.ts && tsc -p ./tsconfig.full.json",
-    "start:stripped": "node ./dist/index.js",
-    "start:full": "node ./full/index.js",
     "test": "npx ts-node ./test.ts"
   },
   "keywords": [],

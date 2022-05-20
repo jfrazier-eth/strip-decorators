@@ -67,10 +67,11 @@ export function compile(program: ts.Program) {
 /**
  * Compiles a TypeScript program, stripping all decorators and unused imports.
  */
-export function compileFromConfig(rootNames: string[], tsconfig: any, baseConfig?: any) {
+export function compileFromConfig(rootNames: string[], options: ts.CompilerOptions) {
   const program = ts.createProgram({
     rootNames,
-    options: { ...baseConfig.compilerOptions, ...tsconfig.compilerOptions, },
+    options,
   });
+  
   return compile(program);
 }

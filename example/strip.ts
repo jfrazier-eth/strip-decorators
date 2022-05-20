@@ -13,4 +13,4 @@ mkdirSync(tsConfigFull.compilerOptions.outDir);
 copyFileSync('./package.json', join(tsConfigStripped.compilerOptions.outDir, 'package.json'));
 copyFileSync('./package.json', join(tsConfigFull.compilerOptions.outDir, 'package.json'));
 
-compileFromConfig([entrypoint], tsConfigStripped, tsConfigBase);
+compileFromConfig([entrypoint], { ...tsConfigBase.compilerOptions as any, ...tsConfigStripped.compilerOptions });
