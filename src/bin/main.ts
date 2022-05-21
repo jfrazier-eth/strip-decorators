@@ -1,27 +1,17 @@
-import { compileFromOptions } from '../compile';
-import { readFileSync } from 'fs';
-import { CompilerOptions } from 'typescript';
+import { compileFromTsconfig } from '../compile';
 
 function main() {
   const args = process.argv;
 
   if (args.length < 4) {
-    console.log('Usage: strip-decorators <entrypoint> <path to tsconfigs>\nExample: strip-decorators ./dist/index.js ./tsconfig.json ./tsconfig-prod.json');
+    console.log('Usage: strip-decorators <entrypoint> <path to tsconfig>\nExample: strip-decorators ./dist/index.js ./tsconfig.json');
     return;
   }
 
   const entrypoint = args[2]
-  const tsconfigs = args.slice(3);
+  const tsconfig = args[3];
 
-  let options: CompilerOptions = {};
-  
-  for (const tsconfig of tsconfigs) {
-    const buffer = readFileSync(tsconfig);
-    const json = JSON.parse(buffer.toString('utf8'));
-    options = {...options, ...json.compilerOptions};
-  }
-
-  compileFromOptions([entrypoint], options);
+  compileFromTsconfig([entrypoint], tsconfig);
 }
 
 main();

@@ -1,5 +1,7 @@
+import { dirname, join } from 'path';
 import * as ts from "typescript";
 import { elideImports } from "./elide-imports";
+import { readFileSync } from 'fs';
 
 /**
  * Compiles a TypeScript program, stripping all decorators and unused imports.
@@ -74,4 +76,30 @@ export function compileFromOptions(rootNames: string[], options: ts.CompilerOpti
   });
   
   return compile(program);
+}
+
+/**
+ * Compiles a TypeScript program, stripping all decorators and unused imports.
+ */
+ export function compileFromTsconfig(rootNames: string[], tsconfig: string) {
+  const childJson = readJSON(tsconfig);
+  let parentJson;
+
+  if ('extends' in childJson) {
+    parentJson = readJSON(join(dirname(tsconfig), childJson.extends));
+  }
+
+  // console.log({parent: parentJson?.compilerOptions, child: childJson.compilerOptions});
+
+  return compileFromOptions(rootNames, {...parentJson?.compilerOptions, ...childJson.compilerOptions});
+}
+
+
+/**
+ * Reads JSON from a file.
+ */
+ function readJSON(filePath: string) {
+  const buffer = readFileSync(filePath);
+  const json = JSON.parse(buffer.toString('utf8'));
+  return json;
 }
