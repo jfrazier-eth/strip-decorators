@@ -12,9 +12,9 @@ Usage: `strip-decorators <entrypoint> <path to tsconfig>`
 Example: `strip-decorators ./src/index.ts ./tsconfig.json`
 
 ### Library
-Install the dependency locally:
+Install the dev dependency locally:
 
-`npm i strip-decorators`
+`npm i -D strip-decorators`
 
 Usage:
 
