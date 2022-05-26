@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "license": "MIT",
-  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jfrazier-eth/strip-decorators"
+  },
   "bin": {
     "strip-decorators": "./dist/bin/main.js"
   },
