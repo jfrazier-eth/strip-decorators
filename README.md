@@ -7,9 +7,9 @@ Install the CLI version globally:
 
 `npm i -g strip-decorators`
 
-Usage: `strip-decorators <entrypoint> <path to tsconfigs>`
+Usage: `strip-decorators <entrypoint> <path to tsconfig>`
 
-Example: `strip-decorators ./src/index.ts ./tsconfig.json ./tsconfig-prod.json`
+Example: `strip-decorators ./src/index.ts ./tsconfig.json`
 
 ### Library
 Install the dependency locally:
