@@ -17,7 +17,6 @@ export function compile(program: ts.Program) {
         if (ts.isCallExpression(decorator.expression)) {
           const exp = decorator.expression as ts.CallExpression;
           const decoratorName = exp.expression.getText();
-          console.log(`Found decorator: ${decoratorName}`);
         }
         removedNodes.push(node);
 
